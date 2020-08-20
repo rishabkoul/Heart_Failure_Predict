@@ -123,14 +123,14 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
 
         # Model
         models = []
-        models.append(("LR", LogisticRegression()))
-        models.append(("LDA", LinearDiscriminantAnalysis()))
-        models.append(("KNN", KNeighborsClassifier()))
-        models.append(('CART', DecisionTreeClassifier()))
-        models.append(('NB', GaussianNB()))
-        models.append(('SVM', SVC(probability=True)))
+        # models.append(("LR", LogisticRegression()))
+        # models.append(("LDA", LinearDiscriminantAnalysis()))
+        # models.append(("KNN", KNeighborsClassifier()))
+        # models.append(('CART', DecisionTreeClassifier()))
+        # models.append(('NB', GaussianNB()))
+        # models.append(('SVM', SVC(probability=True)))
         models.append(('RFC', RandomForestClassifier(n_estimators=100)))
-        models.append(('GBC', GradientBoostingClassifier()))
+        # models.append(('GBC', GradientBoostingClassifier()))
 
         # evaluate each model in turn
 
@@ -155,23 +155,21 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
             model.fit(X, Y)
             pickle.dump(model, open(name+'.pkl', 'wb'))
 
-        if st.checkbox("Metrics as Table"):
-            st.dataframe(pd.DataFrame(
-                zip(model_name, model_mean, model_std), columns=['Model Name', 'Model Accuracy', 'Standard Deviation']))
+        st.dataframe(pd.DataFrame(
+            zip(model_name, model_mean, model_std), columns=['Model Name', 'Model Accuracy', 'Standard Deviation']))
 
-        if st.checkbox("Metrics as Json"):
-            st.json(all_models)
+        st.json(all_models)
 
     elif choice == 'Predict':
         models = []
-        models.append("LR.pkl")
-        models.append("LDA.pkl")
-        models.append("KNN.pkl")
-        models.append('CART.pkl')
-        models.append('NB.pkl')
-        models.append('SVM.pkl')
+        # models.append("LR.pkl")
+        # models.append("LDA.pkl")
+        # models.append("KNN.pkl")
+        # models.append('CART.pkl')
+        # models.append('NB.pkl')
+        # models.append('SVM.pkl')
         models.append('RFC.pkl')
-        models.append('GBC.pkl')
+        # models.append('GBC.pkl')
 
         def user_input_features():
             age = st.sidebar.slider('Age of the patient(Years)', 40, 95, 50)
