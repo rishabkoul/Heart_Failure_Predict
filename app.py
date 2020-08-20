@@ -1,4 +1,5 @@
 # Core Pkgs
+import pickle
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -29,7 +30,7 @@ This app predicts the **Heart Failure** for a patient.
 
 Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/s12911-020-1023-5).
 """)
-    activities = ["EDA", "Plot", "Model Building", "About"]
+    activities = ["EDA", "Plot", "Model Building", "Predict", "About"]
 
     choice = st.sidebar.selectbox("Select Activity", activities)
 
@@ -127,7 +128,7 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
         models.append(("KNN", KNeighborsClassifier()))
         models.append(('CART', DecisionTreeClassifier()))
         models.append(('NB', GaussianNB()))
-        models.append(('SVM', SVC(probability=True, gamma="auto")))
+        models.append(('SVM', SVC(probability=True)))
         models.append(('RFC', RandomForestClassifier(n_estimators=100)))
         models.append(('GBC', GradientBoostingClassifier()))
 
@@ -151,6 +152,8 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
             accuracy_results = {"model_name": name, "model_accuracy": cv_results.mean(
             ), "standard_deviation": cv_results.std()}
             all_models.append(accuracy_results)
+            model.fit(X, Y)
+            pickle.dump(model, open(name+'.pkl', 'wb'))
 
         if st.checkbox("Metrics as Table"):
             st.dataframe(pd.DataFrame(
@@ -158,6 +161,17 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
 
         if st.checkbox("Metrics as Json"):
             st.json(all_models)
+
+    elif choice == 'Predict':
+        models = []
+        models.append("LR.pkl")
+        models.append("LDA.pkl")
+        models.append("KNN.pkl")
+        models.append('CART.pkl')
+        models.append('NB.pkl')
+        models.append('SVM.pkl')
+        models.append('RFC.pkl')
+        models.append('GBC.pkl')
 
         def user_input_features():
             age = st.sidebar.slider('Age of the patient(Years)', 40, 95, 50)
@@ -201,10 +215,10 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
         input_df = user_input_features()
         if input_df is not None:
             st.dataframe(input_df)
-        for name, model in models:
-            model.fit(X, Y)
+        for name in models:
+            model = pickle.load(open(name, 'rb'))
             prediction_proba = model.predict_proba(input_df)
-            st.write('{} Predictions:'.format(name))
+            st.write('{} Predictions:'.format(name[0:-4]))
             st.write(prediction_proba)
             index = np.argmax(prediction_proba)
             if index == 0:
