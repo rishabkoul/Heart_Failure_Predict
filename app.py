@@ -21,11 +21,6 @@ import matplotlib
 matplotlib.use('Agg')
 
 
-# ML pkgs
-
-st.set_option('deprecation.showfileUploaderEncoding', False)
-
-
 def main():
     st.write("""
 # Heart Failure Prediction App
