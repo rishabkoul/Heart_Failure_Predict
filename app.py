@@ -172,28 +172,28 @@ Data obtained from [here](https://bmcmedinformdecismak.biomedcentral.com/article
         # models.append('GBC.pkl')
 
         def user_input_features():
-            age = st.sidebar.slider('Age of the patient(Years)', 40, 95, 50)
-            anaemia = st.sidebar.selectbox(
+            age = st.slider('Age of the patient(Years)', 40, 95, 50)
+            anaemia = st.selectbox(
                 'Anaemia-Decrease of red blood cells or hemoglobin(True-1, False-0)', (1, 0))
-            creatinine_phosphokinase = st.sidebar.slider(
+            creatinine_phosphokinase = st.slider(
                 'Creatinine phosphokinase-Level of the CPK enzyme in the blood(mcg/L)', 23, 7861, 3300)
-            diabetes = st.sidebar.selectbox(
+            diabetes = st.selectbox(
                 'Diabetes-If the patient has diabetes(True-1, False-0)', (1, 0))
-            ejection_fraction = st.sidebar.slider(
+            ejection_fraction = st.slider(
                 'Ejection fraction-Percentage of blood leaving', 14, 80, 30)
-            high_blood_pressure = st.sidebar.selectbox(
+            high_blood_pressure = st.selectbox(
                 'High blood pressure-If a patient has hypertension(True-1, False-0)', (1, 0))
-            platelets = st.sidebar.slider(
+            platelets = st.slider(
                 'Platelets-Platelets in the blood(kiloplatelets/mL)', 25100, 850000, 40000)
-            serum_creatinine = st.sidebar.slider(
+            serum_creatinine = st.slider(
                 'Serum creatinine-Level of creatinine in the blood(mg/dL)', 0.5000, 9.4000, 1.2000)
-            serum_sodium = st.sidebar.slider(
+            serum_sodium = st.slider(
                 'Serum sodium-Level of sodium in the blood(mEq/L)', 113, 148, 120)
-            sex = st.sidebar.selectbox(
+            sex = st.selectbox(
                 'Sex-Woman or Man(Man-1,Women-0)', (1, 0))
-            smoking = st.sidebar.selectbox(
+            smoking = st.selectbox(
                 'Smoking-If the patient smokes(True-1, False-0)', (1, 0))
-            time = st.sidebar.slider(
+            time = st.slider(
                 'Time-Follow-up period(Days)', 4, 285, 100)
             data = {'age': age,
                     'anaemia': anaemia,
